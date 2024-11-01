@@ -10,8 +10,10 @@ import { ConfigProvider } from "antd";
 
 import { store } from "./app.store";
 
+import Layout from "../pages/layout";
 import Login from "../pages/login";
 import Home from "../pages/home";
+import Dash from "../pages/dash";
 
 import "antd/dist/reset.css";
 
@@ -25,13 +27,15 @@ const App = () => {
     <Provider store={store}>
       <ConfigProvider>
         <Router>
+          <Layout />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route
-              path="/home"
+              path="/dash"
               element={
                 <PrivateRoute>
-                  <Home />
+                  <Dash />
                 </PrivateRoute>
               }
             />
