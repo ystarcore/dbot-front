@@ -1,22 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Button } from 'antd';
+import React from "react";
 
-import { logout } from '../../app/app.slice';
+import Scrape from "./../scrape";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
   return (
-    <div>
-      <h1>Home Page</h1>
-      <Button type="primary" onClick={handleLogout}>
-        Logout
-      </Button>
+    <div style={{ padding: "100px 40px" }}>
+      <Scrape />
     </div>
   );
 };

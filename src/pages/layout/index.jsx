@@ -22,14 +22,14 @@ const Navbar = () => {
 
       {/* Right Aligned Links */}
       <div style={styles.navItems}>
-        {isAuth ? (
+        <Link to="/dash" style={styles.link}>
+          Admin
+        </Link>
+        &nbsp;&nbsp;&nbsp;
+        {isAuth && (
           <span style={styles.logout} onClick={() => dispatch(logout())}>
             Log Out
           </span>
-        ) : (
-          <Link to="/dash" style={styles.link}>
-            Admin
-          </Link>
         )}
       </div>
     </nav>
