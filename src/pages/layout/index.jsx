@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../app/app.slice";
 
-import logo from "./../../assets/vite.svg";
+import logo from "./../../assets/logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -55,16 +55,17 @@ const styles = {
   },
   logoImage: {
     height: "40px",
+    filter: "brightness(150%)",
   },
   navItems: {
     fontSize: "18px",
   },
   link: {
     textDecoration: "none",
-    color: "#bbbbbb",
+    color: "#ffffff",
   },
   logout: {
-    color: "#bbbbbb",
+    color: "#ffffff",
     cursor: "pointer",
   },
 };

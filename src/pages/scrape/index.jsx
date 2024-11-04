@@ -30,7 +30,7 @@ function Scrape() {
       key: "name",
     },
     {
-      title: "Scraped Date",
+      title: "Scraped At",
       dataIndex: "scrapedAt",
       key: "scrapedAt",
       render: (data, record) => (
@@ -56,9 +56,16 @@ function Scrape() {
     <div>
       <Table
         columns={columns}
+        style={{ opacity: 0.8 }}
         dataSource={scrapesData?.scrapes || []}
         rowKey={(record) => record._id}
-        pagination={{ pageSize: 10 }}
+        pagination={false}
+        bordered
+        title={() => (
+          <div style={{ width: "100%" }}>
+            <h1 style={{}}>Scraped Data</h1>
+          </div>
+        )}
       />
     </div>
   );

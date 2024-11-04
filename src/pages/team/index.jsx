@@ -122,7 +122,7 @@ const Team = () => {
 
   const columns = [
     {
-      title: "Name",
+      title: "Team Name",
       dataIndex: "name",
       width: "25%",
       editable: true,
@@ -156,7 +156,7 @@ const Team = () => {
       ),
     },
     {
-      title: "Client",
+      title: "Upload Client Xlsx",
       dataIndex: "client",
       width: "25%",
       render: (_, record) => (
@@ -184,7 +184,7 @@ const Team = () => {
       ),
     },
     {
-      title: "Edit",
+      title: "Edit / Delete",
       dataIndex: "edit",
       render: (_, record) => {
         const editable = isEditing(record);
@@ -217,21 +217,26 @@ const Team = () => {
   ];
 
   return (
-    <div style={{ padding: "100px 40px" }}>
-      <Button
-        type="primary"
-        onClick={createNewRow}
-        disabled={editingId !== ""}
-        style={{ marginBottom: 16 }}
-      >
-        Create
-      </Button>
+    <div style={{ padding: "100px 40px", opacity: 0.9 }}>
       <Table
         components={{
           body: {
             cell: (props) => <td {...props} />,
           },
         }}
+        title={() => (
+          <div style={{ width: "100%" }}>
+            <Button
+              type="primary"
+              onClick={createNewRow}
+              disabled={editingId !== ""}
+              style={{ float: "right" }}
+            >
+              New Team
+            </Button>
+            <h1>Team Management</h1>
+          </div>
+        )}
         bordered
         dataSource={data.map((item) => ({ ...item, key: item._id }))}
         columns={columns}
