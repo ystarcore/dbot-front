@@ -16,10 +16,12 @@ import { URI } from "../../app/app.config";
 
 const Team = () => {
   const { data: teamData = { teams: [] } } = useFetchTeamsQuery();
-  const [createTeam] = useCreateTeamMutation();
-  const [editTeam] = useEditTeamMutation();
+  const [createTeam, { isSuccess: isSuccessCreateTeam }] =
+    useCreateTeamMutation();
+  const [editTeam, { isSuccess: isSuccessEditTeam }] = useEditTeamMutation();
   const [removeTeam] = useRemoveTeamMutation();
-  const [createClient] = useCreateClientMutation();
+  const [createClient, { isSuccess: isSuccessCreateClien }] =
+    useCreateClientMutation();
 
   const [data, setData] = useState([]);
   const [editingId, setEditingId] = useState("");
@@ -51,6 +53,13 @@ const Team = () => {
 
       setEditingId("");
       setEditedName("");
+
+      if (isSuccessCreateTeam) message.success("Team create successfully");
+      else if (isSuccessEditTeam) message.success("Team update successfully");
+      else
+        message.error(
+          "Failed to create team. Please try it after logout/login"
+        );
     } catch (err) {
       message.error(`Failed: ${err?.data?.error?.message}`);
     }
@@ -100,7 +109,13 @@ const Team = () => {
       const tmp = { ...fileList, [id]: [] };
 
       setFileList({ ...tmp });
-      message.success("Client uploaded successfully");
+
+      if (isSuccessCreateClien)
+        message.success("Client file update successfully");
+      else
+        message.error(
+          "Failed to upload client. Please try it after logout/login"
+        );
     } catch (error) {
       message.error("Failed to upload client");
     }
