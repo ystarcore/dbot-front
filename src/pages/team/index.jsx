@@ -46,22 +46,37 @@ const Team = () => {
     setEditingId("");
   };
 
+  useEffect(() => {
+    if (isSuccessCreateTeam) message.success("Team created successfully");
+  }, [isSuccessCreateTeam]);
+
+  useEffect(() => {
+    if (isSuccessEditTeam) message.success("Team updated successfully");
+  }, [isSuccessEditTeam]);
+
+  useEffect(() => {
+    if (isSuccessCreateClien)
+      message.success("Client file update successfully");
+  }, [isSuccessCreateClien]);
+
   const save = async () => {
     try {
-      if (editingId === "new") await createTeam({ name: editedName });
-      else await editTeam({ id: editingId, data: { name: editedName } });
+      let result;
+      if (editingId === "new") {
+        result = await createTeam({ name: editedName });
+        if (result.error) throw result.error;
+      } else {
+        result = await editTeam({ id: editingId, data: { name: editedName } });
+        if (result.error) throw result.error;
+      }
 
       setEditingId("");
       setEditedName("");
 
-      if (isSuccessCreateTeam) message.success("Team create successfully");
-      else if (isSuccessEditTeam) message.success("Team update successfully");
-      else
-        message.error(
-          "Failed to create team. Please try it after logout/login"
-        );
     } catch (err) {
-      message.error(`Failed: ${err?.data?.error?.message}`);
+      message.error(
+        `Failed: ${err.data?.error?.message || "Unexpected Error"}`
+      );
     }
   };
 
@@ -104,20 +119,15 @@ const Team = () => {
     formData.append("file", fileList[id][0].originFileObj);
 
     try {
-      await createClient({ id, formData });
+      const result = await createClient({ id, formData });
+
+      if (result.error) throw result.error;
 
       const tmp = { ...fileList, [id]: [] };
 
       setFileList({ ...tmp });
-
-      if (isSuccessCreateClien)
-        message.success("Client file update successfully");
-      else
-        message.error(
-          "Failed to upload client. Please try it after logout/login"
-        );
     } catch (error) {
-      message.error("Failed to upload client");
+      message.error("Failed to upload client. Try it after logout/login.");
     }
   };
 
